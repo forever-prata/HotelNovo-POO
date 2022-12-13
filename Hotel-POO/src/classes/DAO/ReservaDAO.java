@@ -15,7 +15,7 @@ import classes.DTO.Reserva;
 public class ReservaDAO {
 	
     final String NOMEDATABELA = "reserva";
-    boolean inserir(Reserva reserva) {
+    public boolean inserir(Reserva reserva) {
         try {
             Connection conn = Conexao.conectar();
             String sql = "INSERT INTO " + NOMEDATABELA + " (idcliente,idfuncionario,idquarto,valorDiaria,dias,entrada,saida,cancelada) VALUES (?,?,?,?,?,?,?,?);";
@@ -148,36 +148,32 @@ public class ReservaDAO {
             return null;
         }
     }
-    public List<Reserva> checkin(Reserva reserva) {
+    public boolean checkin(Reserva reserva) {
         try {
             Connection conn = Conexao.conectar();
             String sql = "UPDATE " + NOMEDATABELA + " SET entrada = ? WHERE idreserva = ?;";
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setDate(1, new java.sql.Date(reserva.getEntrada().getTime()));
             ps.setInt(2, reserva.getIdReserva());
-            ResultSet rs = ps.executeQuery();
-            List<Reserva> listObj = montarLista(rs);
-            return listObj;
+            return true;
         } catch (Exception e) {
             //System.err.println("Erro: " + e.toString());
             //e.printStackTrace();
-            return null;
+            return false;
         }
     }
-    public List<Reserva> checkout(Reserva reserva) {
+    public boolean checkout(Reserva reserva) {
         try {
             Connection conn = Conexao.conectar();
             String sql = "UPDATE " + NOMEDATABELA + " SET saida = ? WHERE idreserva = ?;";
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setDate(1, new java.sql.Date(reserva.getSaida().getTime()));
             ps.setInt(2, reserva.getIdReserva());
-            ResultSet rs = ps.executeQuery();
-            List<Reserva> listObj = montarLista(rs);
-            return listObj;
+            return true;
         } catch (Exception e) {
             //System.err.println("Erro: " + e.toString());
             //e.printStackTrace();
-            return null;
+            return false;
         }
     }
     public List<Reserva> pesquisarTodos() {
