@@ -46,11 +46,27 @@ public class Reserva {
 		this.saida = saida;
 	}
 	
+	public Reserva(Cliente cliente, Funcionario funcionario, Quarto quarto, double valorDiaria, int dias,
+			boolean cancelada) {
+		super();
+		this.cliente = cliente;
+		this.funcionario = funcionario;
+		this.quarto = quarto;
+		this.valorDiaria = valorDiaria;
+		this.dias = dias;
+		this.cancelada = cancelada;
+	}
+
 	public Reserva(int idReserva, Date entrada, Date saida) {
 		super();
 		this.idReserva = idReserva;
 		this.entrada = entrada;
 		this.saida = saida;
+	}
+	
+	public Reserva(int idReserva) {
+		super();
+		this.idReserva = idReserva;
 	}
 
 	public Reserva() {

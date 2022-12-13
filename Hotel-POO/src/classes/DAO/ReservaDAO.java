@@ -18,16 +18,14 @@ public class ReservaDAO {
     public boolean inserir(Reserva reserva) {
         try {
             Connection conn = Conexao.conectar();
-            String sql = "INSERT INTO " + NOMEDATABELA + " (idcliente,idfuncionario,idquarto,valorDiaria,dias,entrada,saida,cancelada) VALUES (?,?,?,?,?,?,?,?);";
+            String sql = "INSERT INTO " + NOMEDATABELA + " (idcliente,idfuncionario,idquarto,valorDiaria,dias,cancelada) VALUES (?,?,?,?,?,?);";
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setInt(1, reserva.getCliente().getIdCliente());
             ps.setInt(2, reserva.getFuncionario().getNumeroRegistro());
             ps.setInt(3, reserva.getQuarto().getNumero());
             ps.setDouble(4, reserva.getValorDiaria());
             ps.setInt(5, reserva.getDias());
-            ps.setDate(6, new java.sql.Date(reserva.getEntrada().getTime()));
-            ps.setDate(7, new java.sql.Date(reserva.getSaida().getTime()));
-            ps.setBoolean(8, reserva.isCancelada());
+            ps.setBoolean(6, reserva.isCancelada());
             ps.executeUpdate();
             ps.close();
             conn.close();
@@ -136,7 +134,13 @@ public class ReservaDAO {
     public List<Reserva> pesquisarMes(int i) {
         try {
             Connection conn = Conexao.conectar();
-            String sql = "SELECT * FROM reserva WHERE MONTH(entrada) = ?;";
+            String sql = "SELECT * FROM reserva,cliente,funcionario,quarto\r\n"
+            		+ "where reserva.idcliente = cliente.idcliente\r\n"
+            		+ "and reserva.idfuncionario = funcionario.numeroRegistro\r\n"
+            		+ "and reserva.idquarto = quarto.numero\r\n"
+            		+ "and MONTH(entrada) = ?\r\n"
+            		+ "order by year(entrada)\r\n"
+            		+ ";";
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setInt(1, i);
             ResultSet rs = ps.executeQuery();
@@ -155,6 +159,9 @@ public class ReservaDAO {
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setDate(1, new java.sql.Date(reserva.getEntrada().getTime()));
             ps.setInt(2, reserva.getIdReserva());
+            ps.executeUpdate();
+            ps.close();
+            conn.close();
             return true;
         } catch (Exception e) {
             //System.err.println("Erro: " + e.toString());
@@ -169,6 +176,9 @@ public class ReservaDAO {
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setDate(1, new java.sql.Date(reserva.getSaida().getTime()));
             ps.setInt(2, reserva.getIdReserva());
+            ps.executeUpdate();
+            ps.close();
+            conn.close();
             return true;
         } catch (Exception e) {
             //System.err.println("Erro: " + e.toString());
@@ -201,6 +211,11 @@ public class ReservaDAO {
             while (rs.next()) {
             	Reserva obj = new Reserva();
                 obj.setIdReserva(rs.getInt(1));
+                obj.setValorDiaria(rs.getDouble(5));
+                obj.setDias(rs.getInt(6));
+                obj.setEntrada(rs.getDate(7));
+                obj.setSaida(rs.getDate(8));
+                obj.setCancelada(rs.getBoolean(9));
                 
                 Cliente c = new Cliente();
                 
