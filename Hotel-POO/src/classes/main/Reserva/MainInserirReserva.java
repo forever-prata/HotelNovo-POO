@@ -9,7 +9,7 @@ import classes.DTO.Reserva;
 public class MainInserirReserva {
 
 	public static void main(String[] args) {
-		Cliente cliente = new Cliente(1,"Clarber","12","Claudio@gmail",true);
+		Cliente cliente = new Cliente(1,"Pedrinho","12","Claudio@gmail",true);
 		Funcionario funcionario = new Funcionario(2,"Pedro","0111","Pedro@gmail",true);
 		Quarto quarto = new Quarto(1,false);
 		

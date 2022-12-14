@@ -68,6 +68,12 @@ public class Reserva {
 		super();
 		this.idReserva = idReserva;
 	}
+	
+	public Reserva(double valorDiaria, int dias) {
+		super();
+		this.valorDiaria = valorDiaria;
+		this.dias = dias;
+	}
 
 	public Reserva() {
 		super();

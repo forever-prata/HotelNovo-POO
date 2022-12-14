@@ -34,8 +34,12 @@ public class ReservaBO {
         ReservaDAO reservaDAO = new ReservaDAO();
         return reservaDAO.checkout(reserva);
 }
-    public List<Reserva> pesquisarTodos (){
+    public List<Reserva> pesquisarTodos(){
         ReservaDAO reservaDAO = new ReservaDAO();
         return reservaDAO.pesquisarTodos();
+    }
+    public Double Cancela(Reserva reserva){
+        ReservaDAO reservaDAO = new ReservaDAO();
+        return reservaDAO.cancelar(reserva);
     }
 }

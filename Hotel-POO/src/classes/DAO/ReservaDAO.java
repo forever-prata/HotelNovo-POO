@@ -58,6 +58,84 @@ public class ReservaDAO {
              return false;
         }
     }
+    public Double cancelar(Reserva reserva) {
+        try {
+            Connection conn = Conexao.conectar();
+            String sql = "UPDATE " + NOMEDATABELA + " SET cancelada = true WHERE idreserva = ?;";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, reserva.getIdReserva());
+            ps.executeUpdate();
+            ps.close();
+            conn.close();
+            return calcula(reserva);
+        } catch (Exception e) {
+        	 e.printStackTrace();
+             return null;
+        }
+    }
+    public Double calcula(Reserva reserva) {
+        try {
+            Connection conn = Conexao.conectar();
+            String sql = "SELECT * FROM reserva,cliente,funcionario,quarto\r\n"
+            		+ "where reserva.idcliente = cliente.idcliente\r\n"
+            		+ "and reserva.idfuncionario = funcionario.numeroRegistro\r\n"
+            		+ "and reserva.idquarto = quarto.numero\r\n"
+            		+ "and idreserva = ?\r\n"
+            		+ ";";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, reserva.getIdReserva());
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                Reserva obj = new Reserva();
+                obj.setIdReserva(rs.getInt(1));
+                obj.setValorDiaria(rs.getDouble(5));
+                obj.setDias(rs.getInt(6));
+                obj.setEntrada(rs.getDate(7));
+                obj.setSaida(rs.getDate(8));
+                obj.setCancelada(rs.getBoolean(9));
+                
+                Cliente c = new Cliente();
+                
+                c.setIdCliente(rs.getInt(10));
+                c.setNome(rs.getString(11));
+                c.setCpf(rs.getString(12));
+                c.setEmail(rs.getString(13));
+                c.setAtivo(rs.getBoolean(14));
+                
+                obj.setCliente(c);
+                
+                Funcionario f = new Funcionario();
+                
+                f.setNumeroRegistro(rs.getInt(15));
+                f.setNome(rs.getString(16));
+                f.setCpf(rs.getString(17));
+                f.setEmail(rs.getString(18));
+                f.setAtivo(rs.getBoolean(19));
+                
+                obj.setFuncionario(f);
+                
+                Quarto q = new Quarto();
+                
+                q.setNumero(rs.getInt(20));
+                q.setOcupacao(rs.getBoolean(21));
+                
+                obj.setQuarto(q);
+                
+                ps.close();
+                rs.close();
+                conn.close();
+                return (obj.getValorDiaria() * obj.getDias())*0.2;
+            } else {
+                ps.close();
+                rs.close();
+                conn.close();
+                return null;
+            }
+        } catch (Exception e) {
+        	 e.printStackTrace();
+             return null;
+        }
+    }
     public boolean excluir(Reserva reserva) {
         try {
             Connection conn = Conexao.conectar();
@@ -88,6 +166,11 @@ public class ReservaDAO {
             if (rs.next()) {
                 Reserva obj = new Reserva();
                 obj.setIdReserva(rs.getInt(1));
+                obj.setValorDiaria(rs.getDouble(5));
+                obj.setDias(rs.getInt(6));
+                obj.setEntrada(rs.getDate(7));
+                obj.setSaida(rs.getDate(8));
+                obj.setCancelada(rs.getBoolean(9));
                 
                 Cliente c = new Cliente();
                 
