@@ -35,9 +35,9 @@ public class MainReserva {
 		}
 		
 		//Inserir
-		Cliente cliente = new Cliente(1,"Pedrinho","12","Claudio@gmail",true);
-		Funcionario funcionario = new Funcionario(2,"Pedro","0111","Pedro@gmail",true);
-		Quarto quarto = new Quarto(1,false);
+		Cliente cliente = new Cliente(2);
+		Funcionario funcionario = new Funcionario(2);
+		Quarto quarto = new Quarto(1);
 		
 		Reserva reserva = new Reserva(cliente,funcionario,quarto,300.00,4,false);
 		
@@ -49,9 +49,9 @@ public class MainReserva {
 		System.out.println();
 		
 		//Alterar e busca por ID
-		Cliente clienteAlt = new Cliente(1,"Cleber","12","Claudio@gmail",true);
-		Funcionario funcionarioAlt = new Funcionario(2,"Pedro","0111","Pedro@gmail",true);
-		Quarto quartoAlt = new Quarto(1,false);
+		Cliente clienteAlt = new Cliente(2);
+		Funcionario funcionarioAlt = new Funcionario(3);
+		Quarto quartoAlt = new Quarto(1);
 				
 		Calendar c = Calendar.getInstance();
 		c.set(Calendar.DAY_OF_MONTH, 20);
@@ -66,7 +66,7 @@ public class MainReserva {
 		
 		Date entrada = c.getTime();
 		
-		Reserva reservaAlt = new Reserva(8,clienteAlt,funcionarioAlt,quartoAlt,300.00,5,entrada,saida,false);
+		Reserva reservaAlt = new Reserva(8,clienteAlt,funcionarioAlt,quartoAlt,150.00,5,entrada,saida,false);
 		
 		reservaBO.alterar(reservaAlt);
 		System.out.println("Reserva Alterada");
@@ -94,7 +94,7 @@ public class MainReserva {
 		System.out.println(reservaOut);
 		
 		//Exclui
-		Reserva reservaDel = new Reserva(16);
+		Reserva reservaDel = new Reserva(14);
 		if (reservaBO.excluir(reservaDel)) {
 			System.out.println("Excluido com Sucesso");
 		}else{

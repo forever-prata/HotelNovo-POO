@@ -19,7 +19,7 @@ public class MainCliente {
 		}
 		
 		//Inserir
-		Cliente clienteinse = new Cliente("Paulo","12","Paulo@gmail",true);
+		Cliente clienteinse = new Cliente("Novo","12","Novo@gmail",true);
 		
 		if (clienteBO.inserir(clienteinse))
 			System.out.println("Inserido com Sucesso");
@@ -27,21 +27,21 @@ public class MainCliente {
 			System.out.println("Erro ao Inserir");
 
 		//Alterar e Procurar
-		Cliente clienteAlt = new Cliente(2,"Cleber","123123","Claudio@gmail",true);
+		Cliente clienteAlt = new Cliente(2,"Novo","123123","EmailNovoo@gmail",true);
 		
 		clienteBO.alterar(clienteAlt);
 		clienteAlt = clienteBO.procurarPorId(clienteAlt);
 		System.out.println(clienteAlt);
 		
 		//Ativar e Procurar
-		Cliente clienteAtv = new Cliente(1);
+		Cliente clienteAtv = new Cliente(2);
 		
 		clienteBO.ativar(clienteAtv);
 		clienteAtv = clienteBO.procurarPorId(clienteAtv);
 		System.out.println(clienteAtv);
 		
 		//Desativar e Procurar
-		Cliente clienteDes = new Cliente(1);
+		Cliente clienteDes = new Cliente(2);
 		
 		clienteBO.ativar(clienteDes);
 		clienteDes = clienteBO.procurarPorId(clienteDes);

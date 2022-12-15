@@ -31,7 +31,7 @@ public class MainQuarto {
 		System.out.println();
 		
 		//Alterar e Pesquisa por Numero
-		Quarto quartoAlterar = new Quarto(2,false);
+		Quarto quartoAlterar = new Quarto(1,true);
 		
 		quartoBO.alterar(quartoAlterar);
 		quartoAlterar = quartoBO.procurarPorNumero(quartoAlterar);
@@ -58,7 +58,7 @@ public class MainQuarto {
 		System.out.println();
 		
 		//Excluir
-		Quarto quartoExcluir = new Quarto(1);
+		Quarto quartoExcluir = new Quarto(2);
 		if (quartoBO.excluir(quartoExcluir))
 			System.out.println("Excluido com Sucesso");
 		else

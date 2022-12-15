@@ -19,7 +19,7 @@ public class MainFuncionario {
 		}
 		
 		//Inserir
-		Funcionario funcionario = new Funcionario("Pedro","0111","Pedro@gmail",true);
+		Funcionario funcionario = new Funcionario("Novo","0111","novo@gmail",true);
 		
 		if (funcionarioBO.inserir(funcionario)) {
 			System.out.println("Inserido com Sucesso");
@@ -29,7 +29,7 @@ public class MainFuncionario {
 		System.out.println();
 		
 		//Ativar e Procurar por ID
-		Funcionario funcionarioAtivar = new Funcionario(1);
+		Funcionario funcionarioAtivar = new Funcionario(3);
 		
 		funcionarioBO.ativar(funcionarioAtivar);
 		funcionario = funcionarioBO.procurarPorId(funcionarioAtivar);
@@ -38,7 +38,7 @@ public class MainFuncionario {
 		System.out.println();
 		
 		//Desativar e Procurar por ID
-		Funcionario funcionarioDesa = new Funcionario(1);
+		Funcionario funcionarioDesa = new Funcionario(3);
 		
 		funcionarioBO.desativar(funcionarioDesa);
 		funcionarioDesa = funcionarioBO.procurarPorId(funcionarioDesa);
@@ -48,7 +48,7 @@ public class MainFuncionario {
 		
 		
 		//Alterar e Procurar por ID
-		Funcionario funcionarioAlt = new Funcionario(1,"Claudio","0987","Claudio@gmail",true);
+		Funcionario funcionarioAlt = new Funcionario(3,"Novo","0987","EmailDiferente@gmail",true);
 		
 		funcionarioBO.alterar(funcionarioAlt);
 		funcionarioAlt = funcionarioBO.procurarPorId(funcionarioAlt);
