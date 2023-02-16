@@ -1,6 +1,5 @@
 package classes.BO;
 
-import classes.DTO.Cliente;
 import classes.DAO.ClienteDAO;
 import java.util.List;
 
